@@ -45,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setupDrawer();
-        }
+        setupDrawer();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -55,12 +53,10 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.fragment_container, ShotListFragment.newInstance())
                     .commit();
         }
-
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-
         super.onPostCreate(savedInstanceState);
         drawerToggle.syncState();
     }
@@ -89,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(MenuItem item) {
                 if (item.isChecked()) {
                     drawerLayout.closeDrawers();
                     return true;
