@@ -1,8 +1,10 @@
 package com.example.rubiooo.mydribbbooo.view;
 
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -13,8 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.rubioo.mydribbbooo.R;
-import com.example.rubiooo.mydribbbooo.view.shot_list.ShotListAdapter;
+
 import com.example.rubiooo.mydribbbooo.view.shot_list.ShotListFragment;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +26,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Jimmy on 2018/1/25.
  */
-
+@SuppressWarnings("ConstantConditions")
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -41,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        setupDrawer();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setupDrawer();
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -67,11 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+        return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 
     private void setupDrawer() {
